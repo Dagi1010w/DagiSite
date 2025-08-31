@@ -76,9 +76,9 @@ const Hero = () => {
 
           {/* Animated title */}
           <div className="mb-8 opacity-0 animate-[fade-in_1s_ease-out_1.5s_forwards]">
-            <h2 className="text-2xl md:text-4xl font-medium text-foreground/90 h-16 flex items-center justify-center">
-              <span className="mr-2">I'm a</span>
-              <span className="text-primary font-semibold min-w-[300px] text-left">
+            <h2 className="text-2xl md:text-4xl font-medium text-foreground/90 h-16 flex flex-nowrap items-center justify-center">
+              <span className="mr-2 whitespace-nowrap">I'm a</span>
+              <span className="text-primary font-semibold min-w-[150px] md:min-w-[300px] text-left whitespace-nowrap">
                 {displayText}
                 <span className="animate-pulse">|</span>
               </span>
