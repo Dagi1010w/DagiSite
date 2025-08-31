@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -19,32 +20,34 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    try {
-      // Create mailto link for direct email sending
-      const mailtoLink = `mailto:${formData.email}?subject=${formData.subject}&body=${formData.message}`;
-
-      // Open default email client
-      window.location.href = mailtoLink;
-
-      // Simulate success after a delay
-      setTimeout(() => {
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        setTimeout(() => setSubmitStatus('idle'), 5000);
-      }, 1000);
-    } catch (error) {
-      console.error('Failed to send message:', error);
-      setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus('idle'), 5000);
-    } finally {
+  emailjs
+    .send(
+      "service_fryz0pj",
+      "template_7noj3ng",
+      {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      },
+      "mJpObRMMNLtkFi_t5"
+    )
+    .then(() => {
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", subject: "", message: "" }); // clear form
+    })
+    .catch(() => {
+      setSubmitStatus("error");
+    })
+    .finally(() => {
       setIsSubmitting(false);
-    }
-  };
+    });
+};
+
 
   const contactInfo = [
     {
